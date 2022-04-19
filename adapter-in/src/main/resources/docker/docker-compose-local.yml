@@ -1,0 +1,11 @@
+version: "3.2"
+services:
+  java-archi-hexa-mariadb:
+    image: "mariadb:10.3.22"
+    restart: always
+    container_name: java-archi-hexa-mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=archi
+    ports:
+      - '3023:3306'
