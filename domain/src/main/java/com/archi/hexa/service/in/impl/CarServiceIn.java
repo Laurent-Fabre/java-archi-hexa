@@ -1,4 +1,4 @@
-package com.archi.hexa.service.out.impl;
+package com.archi.hexa.service.in.impl;
 
 import com.archi.hexa.model.Car;
 import com.archi.hexa.service.in.ICarServiceIn;
@@ -8,9 +8,9 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class CarServiceOut implements ICarServiceOut {
+public class CarServiceIn implements ICarServiceIn {
 
-    private final ICarServiceIn carServiceIn;
+    private final ICarServiceOut carServiceIn;
 
     @Override
     public List<Car> getAllCars() {

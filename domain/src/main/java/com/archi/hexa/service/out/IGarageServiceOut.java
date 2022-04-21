@@ -3,19 +3,18 @@ package com.archi.hexa.service.out;
 import com.archi.hexa.model.Garage;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
- * Interface call by the provider Out (Controller, ...)
+ * Interface call by the provider In (Database, ...)
  */
 public interface IGarageServiceOut {
 
-    List<Garage> getAllGarages();
+    List<Garage> getAllGarage();
 
     Garage createGarage(Garage garage);
 
     Garage updateGarage(Long garageId, Garage garage);
 
-    Garage getGarageById(Long garageId);
-
-    void deleteGarage(Long garageId);
+    Optional<Garage> findGarageById(Long garageId);
 }

@@ -1,45 +1,135 @@
 = Architecture Hexagonal en JAVA
 FABRE Laurent
-v0.1, 13/04/2022: Première version
+v0.1, 20/04/2022: Première version
 :toc:
 :icons: font
 
 == Version
 [horizontal]
 Java:: *17*
-Spring boot:: ??
+Spring boot:: *2.6.6*
 
 == Présentation
 
 === Objectif
 L'objectif de ce projet est de montrer une façon de réaliser l'architecture
-héxagonal en JAVA
+hexagonale en JAVA
 
-=== L'architecture hexagonale
+== L'architecture hexagonale
 
-_Tous d'abord c'est quoi ?_
+_L'architecture quoi ?_
 
-TIP: Le SVG est une forme ou une image vectorielle, elle n'est donc pas basée sur des pixels mais sur des figures géométriques.
+TIP: L'architecture hexagonale, ou architecture à base de ports et d'adaptateurs, est un patron d'architecture utilisé dans le domaine
+de la conception des logiciels.  Elle vise à créer des systèmes à base de composants d'application qui sont faiblement couplés et qui
+peuvent être facilement connectés à leur environnement logiciel au moyen de ports et d'adaptateurs. Ces composants sont modulaires et
+interchangeables ce qui renforce la cohérence des traitements et facilite l'automatisation des tests. +
+Plus d'information https://fr.wikipedia.org/wiki/Architecture_hexagonale_(logiciel)[ici]
 
-Les deux principaux points positifs :
+=== Les grands principes
+*L’architecture hexagonale s’appuie sur trois principes :*
 
-. Format très léger car c'est une image codé en XML.
-. On peut redimensionner un SVG sans aucune perte de qualité.
+. La séparation explicite de l'*_User-Side_*, du *_Business Logic_* et du *_Server-Side_*.
+. Toutes les dépendances vont vers la *_Business Logic_*.
+. Les frontières de l'application sont isolées par des *_Ports_* et des *_Adapters_*.
 
-Plus d'informations https://fr.wikipedia.org/wiki/Scalable_Vector_Graphics[ici]
+=== Schéma de l'architecture
 
-=== Réalisation
-Pour réaliser cet objectif nous allons créer un *sprite svg*. +
+[.left]
+image::doc/img/schema_archi_hexa.png[400,400,align="center"]
+[big underline]*Adapter :* +
+*Input :* Les Adapters Input représente la couche application. Il peut s’agir de contrôleur Rest, de service de message etc …
+C’est la porte d’entrée de votre application. +
+*Output :* Les Adapters Output représente la couche de persistance des données, l’infrastructure.
+Que celle-ci soit via un BDD Maria, une MongoDB ou encore des fichiers. C’est la porte de sortie de votre application. +
+[big underline]*Domain :* +
+Le domaine est l’implémentation de la couche métier. C’est le noyau central de l’application.
+On y retrouve toute la logique métier. On trouve aussi les différents ports (interface)
+de communication avec les Adapters. Le domaine n’a aucune connaissance des Adapters ce sont
+les Adapters qui l’importe. Il doit être complètement dissocié des différents Frameworks de votre
+application.
+(On peut bien sûr avoir des dépendances faibles avec des petites librairies comme _Apache Commons_.) +
+[big underline]*Port :* +
+Les ports représentent les interfaces de communication entre le Domain et les Adapters. Ils sont implémentés par les différents Adapters pour pouvoir communiquer avec le Domain.
 
-TIP: _C'est quoi un sprite svg ?_ +
-Un sprite SVG est un fichier SVG qui contient tous les icônes nécessaires à votre application. +
-Chaque icône est accessible grâce à son *ID*. +
-Le principal avantage d'avoir tous nos icônes dans un seul fichier est que l'application
-chargera qu'une seule fois l'image pendant toute ça durée de vie. Au lieu de charger plusieurs
-fois, différentes icônes.
+=== Avantages
 
-Dans ce projet nous allons utiliser le site https://icomoon.io/app/#/select[icomoon],
-pour créer notre fichier SVG qui contiendra tout nos icônes.
+. Indépendance de la couche métier aux autres couches. Meilleure séparation du code.
+. Les tests sont plus simples à implémenter.
+. On peut modifier notre système de persistance ou nos controllers sans nous soucier du domaine.
+. Séparation des problèmes. À tout moment, on peut choisir de se concentrer sur une seule logique,
+presque indépendamment des deux autres : la logique applicative, la logique métier,
+ou la logique infrastructure. On les comprend plus facilement sans les mélanger,
+et les contraintes de chaque logique a moins d’impact sur les autres.
+. La logique métier est mise en avant.
+
+=== Désavantages
+
+. Nous avons besoin de plus de code qu'une architecture traductionnelle.
+. C'est une structure un peu plus complexe.
+
+== Réalisation
+
+Pour cet exemple, nous avons créé un projet Spring boot et utiliser les modules de maven pour
+séparer efficacement les différentes couches.
+
+=== Intialisation du projet
+
+ * Pour ce projet, nous utilisons Java en version *17*. Il vous faut donc une JDK adaptée.
+ * Pour simuler la BDD mariaDB nous utilisons Docker avec docker-compose. Il vous faut donc installer
+docker sur votre PC puis lancer le fichier _docker-compose-local.yml_ qui se trouve dans les
+_resources_ du module *_adapter-out_*.
+
+=== Schéma du projet
+
+image::doc/img/diagram_archi_hexa.jpg[600,600,align="center"]
+
+Dans ce schéma nous pouvons voir clairement l'architecture du projet pour l'entité *_Car_*.
+
+* En [purple]#violet# nous retrouvons notre application qui contient ses 3 principaux modules.
+* En [blue]#bleu# nous retrouvons notre module _adapter-in_ qui contient le controller REST de
+l'entité Car. Nous voyons que ce controller appel l'interface _ICarServiceIn_ qui se trouve
+dans le module _domain_ pour pouvoir donner les instructions au service de celui-ci.
+* En [green]#vert# nous retrouvons notre module _domain_ qui contient les deux interfaces
+(port) pour communiquer avec les adapters. Nous voyons que le domain n'a pas connaissance
+des adapters mais que ce sont les adpaters qui utilisent les interfaces de celui-ci. +
+Le domain possède l'implémentation du service _ICarServiceIn_ qui contient toute
+la logique métier, en utilisant l'interface _ICarServiceOut_ pour utiliser la persistance
+des données.
+
+* En [red]#rouge# nous retrouvons notre module _adapter-out_ qui contient la partie
+persistance des données. Nous avons notre provider qui implémente l'interface _ICarServiceOut_
+du module domain. Dedans nous aurons la logique de persistance avec l'utilisation
+de l'interface JPA _CarRepository_. Lors de l'execution notre service _CarServiceIn_
+utilisera donc indirectement cette adapter pour persister ses données.
+
+
+=== Liens entre les modules maven
+
+image::doc/img/modules_links.jpg[300,300,align="center"]
+
+Les dépendences des différents modules reste simple et respect tout ce qui est dit plus
+haut : +
+
+* Le module *_adapter-in_* à pour dependence le module _domain_ (pour pouvoir appeler
+l'interface _ICaeServiceIn_ qui est son point d'entré dans la logique métier). Sachant
+que ce projet utilise le framework Spring Boot et que nous faisons un controller REST
+il lui faudra aussi la dépendance _spring-boot-starter-web_. Nous pouvons retrouver
+ici toutes les dependencies nécessaire au partage de nos données (REST, SOAP etc ...).
+* Le module* _domain_* n'a aucune dependence. Comme nous nous en doutions.
+* Le module *_adapter-out_* à pour dependence le module _domain_ (pour pouvoir implémenter
+l'interface _ICaeServiceOut_ et lui donnée la logique de persistance des données).
+Comme nous voulons utiliser JPA pour persister nos données il nous faudra aussi la
+dépendence _spring-boot-starter-data-jpa_. Nous pouvons retrouver
+ici toutes les dependencies nécessaire à la persistance des données (MangoDB, CSV etc ...).
+
+=== Gestion des Beans
+
+Nous n'avons pas encore parlé du dernier module, le module *_core_*. +
+Dans celui-ci nous retrouvons le _main_ de l'application ansi que la configuration
+de celle-ci.
+
+
+
 
 == Utilisation d'icomoon
 

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import com.archi.hexa.service.out.ICarServiceOut;
+import com.archi.hexa.service.in.ICarServiceIn;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/cars")
 public class CarController {
-    private final ICarServiceOut carService;
+    private final ICarServiceIn carService;
     private final CarDTOMapper carMapper;
 
     @GetMapping

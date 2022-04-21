@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import com.archi.hexa.service.out.IGarageServiceOut;
+import com.archi.hexa.service.in.IGarageServiceIn;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/garages")
 public class GarageController {
-    private final IGarageServiceOut garageService;
+    private final IGarageServiceIn garageService;
     private final GarageDTOMapper garageMapper;
 
     @GetMapping

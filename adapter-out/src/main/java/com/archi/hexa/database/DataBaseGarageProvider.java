@@ -4,14 +4,14 @@ import com.archi.hexa.database.repositories.GarageRepository;
 import com.archi.hexa.model.Garage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import com.archi.hexa.service.in.IGarageServiceIn;
+import com.archi.hexa.service.out.IGarageServiceOut;
 
 import java.util.List;
 import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
-public class DataBaseGarageProvider implements IGarageServiceIn {
+public class DataBaseGarageProvider implements IGarageServiceOut {
     private final GarageRepository garageRepository;
 
 

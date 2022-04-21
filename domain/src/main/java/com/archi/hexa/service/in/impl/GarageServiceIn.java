@@ -1,11 +1,11 @@
-package com.archi.hexa.service.out.impl;
+package com.archi.hexa.service.in.impl;
 
 import com.archi.hexa.model.Garage;
-import com.archi.hexa.service.out.IGarageServiceOut;
+import com.archi.hexa.service.in.IGarageServiceIn;
 
 import java.util.List;
 
-public class GarageServiceOut implements IGarageServiceOut {
+public class GarageServiceIn implements IGarageServiceIn {
 
     @Override
     public List<Garage> getAllGarages() {

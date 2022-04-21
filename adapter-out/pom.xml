@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>adapter-out</artifactId>
+    <artifactId>adapter-in</artifactId>
 
     <!--<properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -19,7 +19,7 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <!-- Récupère le domain pour accéder aux interfaces "out" -->
         <dependency>
@@ -31,4 +31,5 @@
             <artifactId>mapstruct</artifactId>
         </dependency>
     </dependencies>
+
 </project>

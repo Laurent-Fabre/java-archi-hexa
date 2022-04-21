@@ -3,10 +3,9 @@ package com.archi.hexa.service.in;
 import com.archi.hexa.model.Car;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
- * Interface call by the provider In (Database, ...)
+ * Interface call by the provider Out (Controller, ...)
  */
 public interface ICarServiceIn {
 
@@ -16,7 +15,7 @@ public interface ICarServiceIn {
 
     Car updateCar(Long carId, Car car);
 
-    Optional<Car> findCarById(Long carId);
+    Car getCarById(Long carId);
 
     void deleteCar(Long carId);
 }

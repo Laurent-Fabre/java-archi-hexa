@@ -3,7 +3,7 @@ package com.archi.hexa.database;
 import com.archi.hexa.database.mapper.CarEntityMapper;
 import com.archi.hexa.database.repositories.CarRepository;
 import com.archi.hexa.model.Car;
-import com.archi.hexa.service.in.ICarServiceIn;
+import com.archi.hexa.service.out.ICarServiceOut;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
-public class DataBaseCarProvider implements ICarServiceIn {
+public class DataBaseCarProvider implements ICarServiceOut {
     private final CarRepository carRepository;
     private final CarEntityMapper carMapper;
 
