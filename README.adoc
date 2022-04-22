@@ -62,7 +62,7 @@ ou la logique infrastructure. On les comprend plus facilement sans les mélanger
 et les contraintes de chaque logique a moins d’impact sur les autres.
 . La logique métier est mise en avant.
 
-=== Désavantages
+=== Inconvenient
 
 . Nous avons besoin de plus de code qu'une architecture traductionnelle.
 . C'est une structure un peu plus complexe.
@@ -115,7 +115,7 @@ l'interface _ICaeServiceIn_ qui est son point d'entré dans la logique métier).
 que ce projet utilise le framework Spring Boot et que nous faisons un controller REST
 il lui faudra aussi la dépendance _spring-boot-starter-web_. Nous pouvons retrouver
 ici toutes les dependencies nécessaire au partage de nos données (REST, SOAP etc ...).
-* Le module* _domain_* n'a aucune dependence. Comme nous nous en doutions.
+* Le module *_domain_* n'a aucune dependence. Comme nous nous en doutions.
 * Le module *_adapter-out_* à pour dependence le module _domain_ (pour pouvoir implémenter
 l'interface _ICaeServiceOut_ et lui donnée la logique de persistance des données).
 Comme nous voulons utiliser JPA pour persister nos données il nous faudra aussi la
@@ -127,118 +127,6 @@ ici toutes les dependencies nécessaire à la persistance des données (MangoDB,
 Nous n'avons pas encore parlé du dernier module, le module *_core_*. +
 Dans celui-ci nous retrouvons le _main_ de l'application ansi que la configuration
 de celle-ci.
-
-
-
-
-== Utilisation d'icomoon
-
-Quand vous vous retrouvez sur le site icomoon, une suite d'icône "IcoMoon -Free" vous
-sont proposés. Ces icônes sont gratuites et vous pouvez les utiliser directement. +
-Si ces icônes ne suffisent pas vous pouvez en importer d'autre.
-
-Il vous suffit ensuite de cliquer sur les icônes que vous souhaitez utiliser. (Ceux sélectionnés ont un contour orange)
-
-image::src/assets/img-doc/icon-selected.png[300,300]
-
-
-Sélectionner votre mode d’export « Generate SVG / PNG » ou « Generate Font »
-
-image::src/assets/img-doc/format-generated.png[300,800]
-
-Pour ce projet, on a utilisé le format *SVG*.
-
-On arrive sur une page qui récapitule les icônes sélectionnées. +
-Il suffit de cliquer sur *_Download_*. +
-Un dossier zip nommé "icomonn" sera téléchargé. À l'intérieur, on retrouve un svg nommé
-*"symbol-defs.svg"*, ce fichier contient toutes nos icônes. +
-Il suffit donc de le copier dans votre projet pour l'utiliser.
-
-== Intialisation du projet
-
-* Lancer la commande suivante pour installer le node_modules.
-----
-npm i
-----
-* Lancer la commande pour lancer le projet.
-----
-ng serve
-----
-* Accédez à l'url http://localhost:4200/ dans votre navigateur.
-
-== Fonctionnement du projet
-
-Ce projet contient le component *"svg-icon"*, dans sa partie html nous utilisons
-la base *_<svg>_* pour afficher un svg à notre IHM. +
-Le *_path_* contiendra la référence de notre svg (son chemin + l'id).
-
-[source,html]
-----
-<svg>
-  <use [attr.xlink:href]=this.path></use>
-</svg>
-----
-
-Plus haut je vous ai parlé d'id pour récupérer notre svg.
-
-Voici quelques explications :  +
-Si on ouvre notre fichier "symbol-defs.svg" généré plus haut on peut découvrir
-la structure suivante :
-
-[source,xml]
-----
-<symbol id="icon-home" viewBox="0 0 32 32">
-    <path d="..."></path>
-</symbol>
-<symbol id="icon-home2" viewBox="0 0 32 32">
-    <path d="..."></path>
-</symbol>
-<symbol id="icon-home3" viewBox="0 0 32 32">
-    <path d="..."></path>
-</symbol>
-...
-----
-
-Dans ce fichier, chaque *_<symbol></symbol>_* représente une icône. +
-Et chaque icône a un id, c'est ce que j'appelle plus haut, l'id du svg. +
-Pour pouvoir récupérer notre icône, il suffit donc d'utiliser le chemin suivant
-comme path pour notre composant *svg-icon* :
-****
-assets/icons/symbol-defs.svg#icon-id
-****
-
-[horizontal]
-
-assets/icons/symbol-defs.svg:: correspond au chemin du fichier.
-#icon-id:: correspond à l'id du svg.
-
-Exemple :
-
-****
-assets/icons/symbol-defs.svg#icon-home
-****
-
-Pour afficher l'icône home.
-
-
-=== Utilisation du composant
-
-Pour utiliser le composant rien de plus simple, dans votre page html il suffit d'appeler le composant
-et lui donner l'id de l'icône que vous voulez afficher.
-
-[source,html]
-----
-<svg-icon icon="icon-home"></svg-icon>
-----
-
-Et voilà ! Vous trouverez sur votre page, le magnifique icône "icon-home".
-
-image::src/assets/img-doc/result.png[300,300]
-
-== Conclusion
-
-On arrive à la fin de la présentation de ce projet. +
-Vous avez pu voir l'utilité des sprites SVG.
-
-N'hésitez pas à me contacter pour toute remarque ou proposition d'évolution.
-Bon dev à tous !
+Le module _domain_ n'ayant aucune dépendence Spring boot, nous sommes obliger de créer les
+beans des services manuellement. +
+Pour ce faire

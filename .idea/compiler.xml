@@ -18,8 +18,8 @@
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.4.2.Final/mapstruct-1.4.2.Final.jar" />
         </processorPath>
         <module name="core" />
-        <module name="adapter-out" />
         <module name="adapter-in" />
+        <module name="adapter-out" />
         <module name="domain" />
       </profile>
     </annotationProcessing>
