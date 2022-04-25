@@ -12,6 +12,11 @@
       <option name="url" value="http://maven2.rd.francetelecom.fr/proxy/repository/inhouse.snapshot" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Central Repository" />
+      <option name="url" value="https://repo.maven.apache.org/maven2" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="inhouse.artifactory" />
       <option name="name" value="orange artifactory inhouse repository" />
       <option name="url" value="https://artifactory.tech.orange/artifactory/maven-virt-libs-release-devops" />

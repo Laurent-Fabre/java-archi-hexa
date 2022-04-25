@@ -129,4 +129,26 @@ Dans celui-ci nous retrouvons le _main_ de l'application ansi que la configurati
 de celle-ci.
 Le module _domain_ n'ayant aucune dépendence Spring boot, nous sommes obliger de créer les
 beans des services manuellement. +
-Pour ce faire
+Pour ce faire nous avons la classe _ServicesConfiguration_ qui à l'annotation Spring
+_@Configuration_ qui contient les beans services du domaine. +
+
+[underline]#Exemple :#
+
+[source,java]
+@Bean
+public ICarServiceIn carServiceOut(ICarServiceOut carServiceIn){
+    return new CarServiceIn(carServiceIn);
+}
+
+Nous pouvons voir l'instanciation du service _CarServiceIn_. On lui donne les beans
+nécessaire à son fonctionnement (ici le bean _ICarServiceOut_ qui lui est instancié
+par Spring Boot car il est présent dans le module *_adapter-out_*).
+Maintenant nous avons le service dans le context Spring et il pourra être injecté
+au besoin.
+
+== Conclusion
+Nous arrivons à la fin de la présentation. +
+J'espère avoir pu vous montrer les différents avantages d'utiliser cette architecture. +
+
+N’hésitez pas à me contacter pour toute remarque ou proposition d’évolution. +
+Bon dev à tous !
