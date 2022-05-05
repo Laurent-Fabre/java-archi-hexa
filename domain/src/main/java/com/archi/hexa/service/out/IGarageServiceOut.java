@@ -14,7 +14,9 @@ public interface IGarageServiceOut {
 
     Garage createGarage(Garage garage);
 
-    Garage updateGarage(Long garageId, Garage garage);
+    Garage updateGarage(Garage garage);
 
     Optional<Garage> findGarageById(Long garageId);
+
+    void deleteGarage(Long garageId);
 }

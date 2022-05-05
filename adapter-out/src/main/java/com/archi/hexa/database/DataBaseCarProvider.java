@@ -39,6 +39,6 @@ public class DataBaseCarProvider implements ICarServiceOut {
 
     @Override
     public void deleteCar(Long carId) {
-
+        this.carRepository.deleteById(carId);
     }
 }

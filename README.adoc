@@ -37,10 +37,17 @@ Plus d'information https://fr.wikipedia.org/wiki/Architecture_hexagonale_(logici
 [.left]
 image::doc/img/schema_archi_hexa.png[400,400,align="center"]
 [big underline]*Adapter :* +
+
+
 *Input :* Les Adapters Input représente la couche application. Il peut s’agir de contrôleur Rest, de service de message etc …
 C’est la porte d’entrée de votre application. +
-*Output :* Les Adapters Output représente la couche de persistance des données, l’infrastructure.
-Que celle-ci soit via un BDD Maria, une MongoDB ou encore des fichiers. C’est la porte de sortie de votre application. +
+
+
+*Output :* Les Adapters Output représente la couche de persistance des données ainsi que l'appel des API partenaire (api externe ...).
+On l'appel aussi la couche _Infrastructure_. Celle-ci peut contenir des connexions à des BDD Maria, MongoDB ou encore un
+persistance via des fichiers, comme des appels à des API externe de partenaire pour envoyer/récupérer des informations. +
+C’est la porte de sortie de votre application. +
+
 [big underline]*Domain :* +
 Le domaine est l’implémentation de la couche métier. C’est le noyau central de l’application.
 On y retrouve toute la logique métier. On trouve aussi les différents ports (interface)
@@ -48,6 +55,7 @@ de communication avec les Adapters. Le domaine n’a aucune connaissance des Ada
 les Adapters qui l’importe. Il doit être complètement dissocié des différents Frameworks de votre
 application.
 (On peut bien sûr avoir des dépendances faibles avec des petites librairies comme _Apache Commons_.) +
+
 [big underline]*Port :* +
 Les ports représentent les interfaces de communication entre le Domain et les Adapters. Ils sont implémentés par les différents Adapters pour pouvoir communiquer avec le Domain.
 
@@ -55,7 +63,8 @@ Les ports représentent les interfaces de communication entre le Domain et les A
 
 . Indépendance de la couche métier aux autres couches. Meilleure séparation du code.
 . Les tests sont plus simples à implémenter.
-. On peut modifier notre système de persistance ou nos controllers sans nous soucier du domaine.
+. On peut à tout moment modifier le moyen de récupérer/persister un type de données que ce soit via BDD ou appel REST sans nous soucier du domaine.
+. On peut à tout moment modifier nos controllers sans nous soucier du domaine.
 . Séparation des problèmes. À tout moment, on peut choisir de se concentrer sur une seule logique,
 presque indépendamment des deux autres : la logique applicative, la logique métier,
 ou la logique infrastructure. On les comprend plus facilement sans les mélanger,

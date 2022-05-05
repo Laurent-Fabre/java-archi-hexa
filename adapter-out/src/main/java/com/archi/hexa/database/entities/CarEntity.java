@@ -31,6 +31,6 @@ public class CarEntity {
     @Column(unique = true, length = 50, nullable = false)
     private String registration;
 
-   /* @Temporal(TemporalType.TIMESTAMP)
+   /*@Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime release;*/
 }

@@ -1,0 +1,6 @@
+/.idea/
+/target/
+/domain/target/
+/core/target/
+/adapter-out/target/
+/adapter-in/target/
